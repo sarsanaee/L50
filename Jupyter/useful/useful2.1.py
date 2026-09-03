@@ -15,15 +15,15 @@ def getdiff(exp,crsid):
     if1_times= []
     f=open("/root/"+crsid+"/L50Lab2/2.1/"+exp+".txt")
     for i in range(100000):
-        intf = f.next()
+        intf = next(f)
         if ('0' in intf):
-            if0_times.append(float(f.next()[42:53]))
-            f.next()
-            if1_times.append(float(f.next()[42:53]))
+            if0_times.append(float(next(f)[42:53]))
+            next(f)
+            if1_times.append(float(next(f)[42:53]))
         elif ('1' in intf):
-            if1_times.append(float(f.next()[42:53]))
-            f.next()
-            if0_times.append(float(f.next()[42:53]))
+            if1_times.append(float(next(f)[42:53]))
+            next(f)
+            if0_times.append(float(next(f)[42:53]))
     f.close()
 
     diff = []

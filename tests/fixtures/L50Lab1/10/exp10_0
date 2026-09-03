@@ -1,0 +1,22 @@
+[  5] local 192.168.0.1 port 55844 connected with 192.168.0.2 port 5001
+[  4] local 192.168.0.1 port 5001 connected with 192.168.0.2 port 34028
+[  5]  0.0- 1.0 sec  0.98 GBytes  8.42 Gbits/sec
+[  4]  0.0- 1.0 sec  0.81 GBytes  7.00 Gbits/sec
+[  5]  1.0- 2.0 sec  0.93 GBytes  7.99 Gbits/sec
+[  4]  1.0- 2.0 sec  0.79 GBytes  6.76 Gbits/sec
+[  5]  2.0- 3.0 sec  0.93 GBytes  8.00 Gbits/sec
+[  4]  2.0- 3.0 sec  0.79 GBytes  6.76 Gbits/sec
+[  5]  3.0- 4.0 sec  0.91 GBytes  7.81 Gbits/sec
+[  4]  3.0- 4.0 sec  0.80 GBytes  6.85 Gbits/sec
+[  5]  4.0- 5.0 sec  0.89 GBytes  7.66 Gbits/sec
+[  4]  4.0- 5.0 sec  0.78 GBytes  6.70 Gbits/sec
+[  5]  5.0- 6.0 sec  0.94 GBytes  8.06 Gbits/sec
+[  4]  5.0- 6.0 sec  0.84 GBytes  7.19 Gbits/sec
+[  5]  6.0- 7.0 sec  0.96 GBytes  8.21 Gbits/sec
+[  4]  6.0- 7.0 sec  0.78 GBytes  6.73 Gbits/sec
+[  5]  7.0- 8.0 sec  1.00 GBytes  8.61 Gbits/sec
+[  4]  7.0- 8.0 sec  0.78 GBytes  6.72 Gbits/sec
+[  5]  8.0- 9.0 sec  0.95 GBytes  8.17 Gbits/sec
+[  4]  8.0- 9.0 sec  0.80 GBytes  6.91 Gbits/sec
+[  5]  9.0-10.0 sec  1.04 GBytes  8.93 Gbits/sec
+[  5]  0.0-10.0 sec  9.53 GBytes  8.19 Gbits/sec

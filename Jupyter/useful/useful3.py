@@ -5,8 +5,8 @@ def getdeltas(exp,crsid,num):
               '/root/'+crsid+'/L50Lab3/'+exp+'_d.txt')
     deltas = []
     with open('/root/'+crsid+'/L50Lab3/'+exp+'_d.txt') as f:
-        f.next()
+        next(f)
         for i in range(2,num+1):
-            delta = f.next()[46:57]
+            delta = next(f)[46:57]
             deltas.append(float(delta)*1000000)
     return deltas
