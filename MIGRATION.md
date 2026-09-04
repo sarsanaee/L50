@@ -83,6 +83,14 @@ bash setup/install_py3_jupyter.sh <crsid>
 /opt/miniforge3/envs/l50/bin/jupyter notebook --allow-root --no-browser --notebook-dir=/root/<crsid>/L50/Jupyter
 ```
 
+Students do not run the installer. The student-facing instructions (clone,
+`bash setup/jupyter3.sh <crsid>`, ssh port forward, token URL, kernel choice,
+troubleshooting) are in the top-level `README.md`; `setup/jupyter3.sh` is a
+thin wrapper around the command above. The PDF handouts (`Intro.pdf`,
+`lab1.pdf`) still print the old `jupyter notebook --allow-root`; their
+sources are not in this repository, so README.md is the authoritative place
+until the PDFs are regenerated.
+
 This leaves `/usr/local/bin/jupyter` (Notebook 5.7, Python 2) intact and
 keeps the `python2` kernelspec visible in the new server as a fallback.
 
