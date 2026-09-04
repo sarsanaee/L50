@@ -8,6 +8,8 @@ Changes made (and nothing else):
     integer (OSNT ipg, tcpreplay pps, MoonGen count) or to matplotlib as a bin
     count: `/` -> `//` so the value stays an int as it was under Python 2
   * `% run` -> `%run` (stray space in Lab 3.2)
+  * `plt.hist(x, bins, (lo,hi), ...)` -> `range=(lo,hi)` (positional range is
+    deprecated in matplotlib 3.10 and keyword-only from 3.12)
 
 Run:  python3 tools/port_notebooks_py3.py [--check]
 --check only reports what would change and exits 1 if anything would.
@@ -27,6 +29,8 @@ SUBS = [
     ("pps = 100000000 / ((512+4)*8)", "pps = 100000000 // ((512+4)*8)"),
     ("str(num/100)", "str(num//100)"),
     ("abs(maxx-minn)/2, (minn,maxx),log=True", "abs(maxx-minn)//2, (minn,maxx),log=True"),
+    # matplotlib >= 3.10 deprecates a positional `range` for hist() (keyword-only from 3.12)
+    ("abs(maxx-minn)//2, (minn,maxx),log=True", "abs(maxx-minn)//2, range=(minn,maxx),log=True"),
     ("% run ", "%run "),
 ]
 
