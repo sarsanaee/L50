@@ -86,9 +86,31 @@ bash setup/install_py3_jupyter.sh <crsid>
 This leaves `/usr/local/bin/jupyter` (Notebook 5.7, Python 2) intact and
 keeps the `python2` kernelspec visible in the new server as a fallback.
 
-Still to verify on the machine itself (cannot be tested off-box):
-1. Notebook 7 talking to the legacy `python2` kernel (ipykernel 4.10) if the
-   fallback is wanted.
-2. Live runs of Lab 2/3 `send()` cells with the `//` values (needs fibres).
-3. `%run` of `useful*.py` from the new kernel resolves `from useful import`
-   (IPython adds the script directory to `sys.path` during `%run`).
+## Status on nf-test105 (done 2026-09-04, on the cloned OS disk)
+
+* Installed: Python 3.12.14, Notebook 7.6.2, jupyter_server 2.21, ipykernel
+  7.3, IPython 9.17, numpy 2.5.2, matplotlib 3.10.9, paramiko 5.0.0 in
+  `/opt/miniforge3/envs/l50`. System python2/python3.5, Jupyter 5.7, DAG and
+  OSNT untouched.
+* `/root/ss3230/L50` is now the ported branch (`py3-jupyter7`); the original
+  Python 2 checkout is kept at `/root/ss3230/L50-py2-orig`.
+* All 38 tests pass on the machine under the new env, including the tshark
+  test and the differential test against Python 2 (`tests/golden_py2.json`,
+  generated there with python2 + the original helpers).
+* Notebook 7 drives both kernels (verified by executing cells through
+  nbclient). **Gotcha fixed:** the legacy kernelspec
+  `/usr/local/share/jupyter/kernels/python2/kernel.json` used a bare `python`,
+  which resolves to the *new* Python 3 when launched from the new server; it
+  now points to `/usr/bin/python2` (backup: `kernel.json.orig`).
+* `%run` of `useful*.py` from the new IPython resolves `from useful import`.
+* Start the server (already running on port 8888, log `/root/ss3230/jupyter7.log`):
+
+  ```
+  /opt/miniforge3/envs/l50/bin/jupyter notebook --allow-root --no-browser --port 8888 --ip 127.0.0.1 --notebook-dir=/root/ss3230/L50/Jupyter
+  ```
+
+  then from the laptop `ssh -L8888:localhost:8888 root@nf-test105...` and open the token URL from the log.
+
+Still to verify: live runs of the Lab 2/3 `send()` cells with the `//` values
+(needs fibres and the NetFPGA bitstream), and a student-style walk through each
+notebook in the browser.
