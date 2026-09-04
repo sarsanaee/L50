@@ -114,3 +114,16 @@ keeps the `python2` kernelspec visible in the new server as a fallback.
 Still to verify: live runs of the Lab 2/3 `send()` cells with the `//` values
 (needs fibres and the NetFPGA bitstream), and a student-style walk through each
 notebook in the browser.
+
+## Hardware fix beyond the py2->py3 port
+
+* **Lab 1 Exp 5b (Solarflare rx-usecs sweep)** — the `sfc` driver enables
+  adaptive RX coalescing by default, which re-tunes `rx-usecs` during the
+  measurement, so the swept value was not the value in force; and setting the
+  same value on every one of the ten inner-loop repeats made the driver print
+  "rx-usecs unmodified, ignoring / no coalesce parameters changed, aborting"
+  nine times per step. Fixed in `Lab 1 Part 1 ping.ipynb`: disable adaptive-rx
+  once before the loop and restore it after, and set `rx-usecs` once per value
+  (outside the `range(10)` repeat loop), with stderr suppressed. The student
+  `ping_cmd` blanks are unchanged. Exp 5a (Intel `intl0`, `ixgbe`) does not
+  have the adaptive-drift problem and is left as-is.
