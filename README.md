@@ -38,23 +38,30 @@ once it is merged into https://github.com/cucl-srg/L50 a plain
 bash setup/jupyter3.sh <crsid>
 ```
 
-Leave this running. It prints a line like
+It starts your server in the background and prints something like
 
 ```
-http://127.0.0.1:8888/tree?token=0123abcd...
+Your notebook server is running (crsid <crsid>, folder /root/<crsid>/L50/Jupyter):
+
+    http://127.0.0.1:8888/tree?token=0123abcd...
+
+To open it, on YOUR laptop run (and leave it open):
+
+    ssh -L8888:localhost:8888 root@<host>
 ```
 
 Note the **port** (normally 8888; if another team's server is already using
-it, Jupyter picks the next free one, e.g. 8889) and keep the **token** URL.
+it, yours gets the next free one, e.g. 8889) and keep the **token** URL.
 
-`setup/jupyter3.sh` is a one-line wrapper around
+The script is safe to run as many times as you like: if your server is
+already running it just prints the URL again and starts nothing. It only ever
+looks at the server for your own `/root/<crsid>/L50/Jupyter`, and never
+touches other teams' servers or anything else on the machine. Two more forms:
 
 ```
-/opt/miniforge3/envs/l50/bin/jupyter notebook --allow-root --no-browser --ip 127.0.0.1 --notebook-dir=/root/<crsid>/L50/Jupyter
+bash setup/jupyter3.sh <crsid> status    # is it running? print the URL again
+bash setup/jupyter3.sh <crsid> stop      # stop your server (notebooks and results are kept)
 ```
-
-which you can run directly if you prefer (extra options, e.g. `--port 8890`,
-can be appended to either form).
 
 ### 3. Open it in the browser on your own machine
 
@@ -66,7 +73,8 @@ ssh -L8888:localhost:8888 root@<host>
 ```
 
 Then paste the token URL from step 2 into your local browser. This is much
-faster than running a browser on the lab machine over `ssh -X`.
+faster than running a browser on the lab machine over `ssh -X`. If you lose
+the URL, `bash setup/jupyter3.sh <crsid> status` prints it again.
 
 ### 4. In the notebook
 
@@ -82,16 +90,17 @@ faster than running a browser on the lab machine over `ssh -X`.
 
 ### Stopping and troubleshooting
 
-* Stop the server with Ctrl-C twice in the terminal from step 2 (or *File ->
-  Shut Down* in the browser). Please stop it when you are done, so ports and
-  memory are free for other teams.
-* "Address already in use" or a different port than expected: another team is
-  using it; use the port Jupyter printed, and forward that one in step 3.
-* `setup/jupyter3.sh: The Python 3 Jupyter stack is not installed`: tell the
-  course staff (the install is `setup/install_py3_jupyter.sh`, run once per
-  machine by staff; it touches nothing else on the system).
-* Lost the token URL: run `/opt/miniforge3/envs/l50/bin/jupyter server list`
-  on Machine A.
+* When you are done for the day, stop your server so ports and memory are
+  free for other teams: `bash setup/jupyter3.sh <crsid> stop`. Closing the
+  terminal does not stop it.
+* A different port than expected: another team already had that port; use
+  the port the script printed, and forward that one in step 3.
+* Lost the token URL: `bash setup/jupyter3.sh <crsid> status`.
+* `the Python 3 Jupyter stack is not installed`: tell the course staff (the
+  install is `setup/install_py3_jupyter.sh`, run once per machine by staff; it
+  touches nothing else on the system).
+* `the server did not come up`: look at the end of `/root/<crsid>/jupyter3.log`
+  and tell the course staff.
 * A Python error mentioning `python3.5` or `distutils-precedence.pth` when you
   run *system* commands is unrelated to the notebooks and can be ignored.
 
